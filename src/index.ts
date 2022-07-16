@@ -1,6 +1,3 @@
-import axios from "axios";
-// import { v4 as uuid } from "uuid";
-import { Customer, GetInvoice, PutInvoice } from "./types";
-import wint from "./wint";
+import wintApi from "./wint";
 
-module.exports = wint;
+module.exports = wintApi;

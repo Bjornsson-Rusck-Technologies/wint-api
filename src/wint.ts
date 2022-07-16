@@ -1,4 +1,4 @@
-import { Article, Customer, GetInvoice, PutInvoice } from "./types";
+import { Article, Customer, GetInvoice, GetListInvoice, Invoice, ListInvoiceResponse, PutInvoice } from "./types";
 import axios from "axios";
 import * as customer from "./endpoints/customer";
 import * as article from "./endpoints/article";
@@ -16,8 +16,10 @@ interface Wint {
         create: (article: Article) => Promise<number>
     },
     invoice: {
-        get: (id: number) => Promise<GetInvoice>
-        create: (invoice: PutInvoice) => Promise<number>
+        get: (id: number) => Promise<GetInvoice>;
+        list: (query: GetListInvoice) => Promise<ListInvoiceResponse>;
+        cursor: ReturnType<typeof invoice.cursor>
+        create: (invoice: PutInvoice) => Promise<number>;
     }
 }
 
@@ -36,7 +38,7 @@ async function wint(options: WintOptions): Promise<Wint> {
                 Authorization: "Basic " + auth
             }
         });
-    } catch(err) {
+    } catch (err) {
         throw new Error("Couldn't authenticate user: " + options.username);
     }
 
@@ -55,6 +57,8 @@ async function wint(options: WintOptions): Promise<Wint> {
         },
         invoice: {
             get: invoice.get(auth, test),
+            list: invoice.list(auth, test),
+            cursor: invoice.cursor(auth, test),
             create: invoice.create(auth, test),
         }
     }

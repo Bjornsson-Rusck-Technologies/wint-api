@@ -94,6 +94,46 @@ export interface PutInvoice extends Invoice {
     useStrictValidation?: boolean
 }
 
+export interface GetListInvoice {
+    numPerPage: number,
+    page: number
+}
+
+export interface ListInvoiceResponse {
+    items: ListInvoice[];
+    numPerPage: number;
+    page: number;
+    totalItems: number;
+    totalItemsWithOutFilter: number;
+}
+
+export interface ListInvoice {
+    id: number,
+    serialNumber: number,
+    ownerId: number | null,
+    ownerName: string | null,
+    fromQuotation: boolean,
+    fromRecurring: boolean,
+    postingDate: string,
+    dueDate: string,
+    customerId: number,
+    customerName: string | null,
+    status: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 100,
+    creditStatus: 0 | 1 | 2,
+    reminderInvoicesCount: number,
+    rot: boolean | null,
+    rut: boolean | null,
+    houseWorkApplicationIsFiled: boolean,
+    currency: string | null,
+    totalAmount: number,
+    totalAmountSummary: {
+        type: string | null,
+        value: number
+    }[] | null,
+    leftToPay: number,
+    paymentState: 0 | 1 | 2 | 3 | 4 | 5
+}
+
 export interface GetInvoice extends Required<Invoice> {
     rows: Required<InvoiceRow>[],
     id: number,
