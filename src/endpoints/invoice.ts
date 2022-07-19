@@ -58,7 +58,7 @@ export const cursor = (auth: string, test: boolean) => async function* () {
     for (let page = 1; page < loopAmount; page++) {
         const { items } = await lister({
             numPerPage: 100,
-            page: 0
+            page: page
         });
 
         for (const item of items) {

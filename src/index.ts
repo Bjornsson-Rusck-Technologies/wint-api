@@ -1,3 +1,3 @@
 import wintApi from "./wint";
 
-module.exports = wintApi;
+export default wintApi;
